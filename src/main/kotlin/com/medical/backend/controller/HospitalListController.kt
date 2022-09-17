@@ -21,12 +21,12 @@ class HospitalListController (
 
     @GetMapping("/hospital")
     fun getAllHospitalLists(): Flux<HospitalList> {
-        return HospitalListService.findAllHospitalLists()
+        return HospitalListService.findAll()
     }
 
     @GetMapping("{hospitalId}")
     fun getHospitalListById(@PathVariable hospitalId: String): Mono<HospitalList> {
-        return HospitalListService.findByhospitalId(hospitalId)
+        return HospitalListService.findById(hospitalId)
     }
 
     @PostMapping("/HospitalLists")
@@ -36,7 +36,7 @@ class HospitalListController (
 
     @PutMapping("/updateHospitalListById/{hospitalId}")
     fun updateByHospitalId( @PathVariable hospitalId: String, @RequestBody hospitalList: HospitalList): Mono<HospitalList> {
-        return HospitalListService.updateHospitalListById(hospitalId,hospitalList)
+        return HospitalListService.updateById(hospitalId,hospitalList)
     }
 
 //    @DeleteMapping
@@ -47,7 +47,7 @@ class HospitalListController (
 
     @DeleteMapping("/HospitalLists/{hospitalId}")
     fun deleteHospitalLists(@PathVariable hospitalId: String): Mono<Void> {
-        return HospitalListService.deleteByhospitalId(hospitalId)
+        return HospitalListService.deleteById(hospitalId)
     }
 }
 

@@ -51,7 +51,7 @@ class HospitalListControllerTest {
                 "hospitalAddress" to "Sion"
             )
         every {
-            HospitalListService.findAllHospitalLists()
+            HospitalListService.findAll()
         } returns Flux.just(HospitalList1)
 
         val response = client.get()
@@ -66,7 +66,7 @@ class HospitalListControllerTest {
 
 
         verify(exactly = 1) {
-            HospitalListService.findAllHospitalLists()
+            HospitalListService.findAll()
         }
     }
 
@@ -116,7 +116,7 @@ class HospitalListControllerTest {
         val HospitalList1 = HospitalList("1","Criticare","982","Andheri")
 
         every {
-            HospitalListService.updateHospitalListById("1",HospitalList1)
+            HospitalListService.updateById("1",HospitalList1)
         } returns Mono.just(HospitalList1)
 
         val response = client.put()
@@ -126,7 +126,7 @@ class HospitalListControllerTest {
             .expectStatus().is2xxSuccessful
 
         verify(exactly = 1) {
-            HospitalListService.updateHospitalListById("1",HospitalList1)
+            HospitalListService.updateById("1",HospitalList1)
         }
     }
 

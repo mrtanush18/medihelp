@@ -15,7 +15,7 @@ class HospitalListService(
 
 ) {
 
-    fun findAllHospitalLists() : Flux<HospitalList> {
+    fun findAll() : Flux<HospitalList> {
         return HospitalListRepository.findAll()
     }
 
@@ -24,15 +24,15 @@ class HospitalListService(
     }
 
 
-    fun updateHospitalListById(id: String, HospitalList: HospitalList):Mono<HospitalList>{
+    fun updateById(id: String, HospitalList: HospitalList):Mono<HospitalList>{
         return HospitalListRepository.save(HospitalList)
     }
 
-    fun deleteByhospitalId(hospitalId: String): Mono<Void> {
+    fun deleteById(hospitalId: String): Mono<Void> {
         return HospitalListRepository.deleteById(hospitalId)
     }
 
-    fun findByhospitalId(hospitalId: String): Mono<HospitalList>{
+    fun findById(hospitalId: String): Mono<HospitalList>{
         return HospitalListRepository.findById(hospitalId)
     }
 
