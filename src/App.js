@@ -21,7 +21,7 @@ function App() {
             element={<AddHospitalComponent />}
           ></Route>
           <Route
-            path="/edit-hospital/:id"
+            path="/edit-hospital/:hospitalId"
             element={<AddHospitalComponent />}
           ></Route>
         </Routes>

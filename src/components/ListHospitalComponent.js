@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import UserService from "../services/HospitalService";
+import HospitalService from "../services/HospitalService";
 
 const ListHospitalComponent = () => {
   const [hospital, setHospital] = useState([]);
@@ -10,7 +10,7 @@ const ListHospitalComponent = () => {
   }, []);
 
   const getAllHospitals = () => {
-    UserService.getAllHospitals()
+    HospitalService.getAllHospitals()
       .then((response) => {
         setHospital(response.data);
         console.log(response.data);
@@ -20,8 +20,8 @@ const ListHospitalComponent = () => {
       });
   };
 
-  const deleteHospital = (userId) => {
-    UserService.deleteHospital(userId)
+  const deleteHospital = (hospitalId) => {
+    HospitalService.deleteHospital(hospitalId)
       .then((response) => {
         getAllHospitals();
       })
@@ -39,6 +39,7 @@ const ListHospitalComponent = () => {
       </Link> */}
       <table className="table table-bordered table-striped">
         <thead>
+          <th> Id </th>
           <th> Name </th>
           <th> Phone no. </th>
           <th> Address </th>
@@ -46,20 +47,21 @@ const ListHospitalComponent = () => {
         </thead>
         <tbody>
           {hospital.map((hospital) => (
-            <tr key={hospital.id}>
+            <tr key={hospital.hospitalId}>
+              <td>{hospital.hospitalId} </td>
               <td> {hospital.hospitalName} </td>
               <td>{hospital.hospitalPhNum}</td>
               <td>{hospital.hospitalAddress}</td>
               <td>
-                <Link
+                {/* <Link
                   className="btn btn-info"
-                  to={`/edit-hospital/${hospital.id}`}
+                  to={`/edit-hospital/${hospital.hospitalId}`}
                 >
                   Update
-                </Link>
+                </Link> */}
                 <button
                   className="btn btn-danger"
-                  onClick={() => deleteHospital(hospital.id)}
+                  onClick={() => deleteHospital(hospital.hospitalId)}
                   style={{ marginLeft: "10px" }}
                 >
                   {" "}

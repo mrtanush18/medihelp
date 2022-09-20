@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import HospitalService from "../services/HospitalService";
 
 const AddHospitalComponent = () => {
-  const { id } = useParams();
+  const { hospitalId } = useParams();
   const navigate = useNavigate();
   const [hospitalName, sethospitalName] = useState("");
   const [hospitalPhNum, sethospitalPhNum] = useState("");
@@ -13,36 +13,38 @@ const AddHospitalComponent = () => {
     e.preventDefault();
 
     const hospital = {
-      id,
+      hospitalId,
       hospitalName,
       hospitalPhNum,
       hospitalAddress,
     };
 
-    if (id) {
-      HospitalService.updateHospital(id)
+    if (hospitalId) {
+      HospitalService.updateHospital(hospitalId, hospital)
         .then((response) => {
-          navigate("/hospitals");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      HospitalService.createHospital()
-        .then((response) => {
-          console.log(response.data);
-
           navigate("/hospitals");
         })
         .catch((error) => {
           console.log(error);
         });
     }
+    // else {
+    //   HospitalService.createHospital(hospital)
+    //     .then((response) => {
+    //       console.log(response.data);
+
+    //       navigate("/hospitals");
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // }
   };
 
   useEffect(() => {
-    HospitalService.getHospitalById(id)
+    HospitalService.getHospitalById(hospitalId)
       .then((response) => {
+        // sethospitalId(response.data.hospitalId);
         sethospitalName(response.data.hospitalName);
         sethospitalPhNum(response.data.hospitalPhNum);
         sethospitalAddress(response.data.hospitalAddress);
@@ -53,11 +55,12 @@ const AddHospitalComponent = () => {
   }, []);
 
   const title = () => {
-    if (id) {
+    if (hospitalId) {
       return <h2 className="text-center">Update Hospital</h2>;
-    } else {
-      return <h2 className="text-center">Add Hospital</h2>;
     }
+    // else {
+    //   return <h2 className="text-center">Add Hospital</h2>;
+    // }
   };
 
   return (
@@ -70,6 +73,17 @@ const AddHospitalComponent = () => {
             {title()}
             <div className="card-body">
               <form>
+                {/* <div className="form-group mb-2">
+                  <label className="form-label">Hospital Id:</label>
+                  <input
+                    type="text"
+                    placeholder="Enter hospital id"
+                    name="id"
+                    className="form-control"
+                    value={id}
+                    onChange={(e) => sethospitalId(e.target.value)}
+                  ></input>
+                </div> */}
                 <div className="form-group mb-2">
                   <label className="form-label"> Hospital name:</label>
                   <input
